@@ -2,7 +2,7 @@
 
 <head>
     <title>LOGIN</title>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">
 </head>
 
 <body>
@@ -11,12 +11,20 @@
 
         </div>
         <div class="login-container">
-            <form>
+            <form class="login" action="login" method="POST">
+                <div class="messages">
+                    <?php
+                    if(isset($messages)){
+                        foreach($messages as $message) {
+                            echo $message;
+                        }
+                    }
+                    ?>
+                </div>
                 <input name="email" type="email" placeholder="johnsmith@gmail.com">
                 <input name="password" type="password" placeholder="password">
-                <div class="login-buttons">
-                    <button>Log In</button>
-                </div>
+                <button type="submit">Log In</button>
+
             </form>
         </div>
         <div class="buttons-container">
