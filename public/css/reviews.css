@@ -1,0 +1,138 @@
+.review-upload-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%; /* Adjusted for better responsiveness */
+    max-width: 600px; /* Prevents excessive stretching */
+    height: auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    width: 100%;
+}
+
+.review-stars {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem; /* Adds spacing between stars */
+    width: 100%;
+    flex-wrap: wrap; /* Allows wrapping on small screens */
+}
+
+label {
+    font-size: 2rem; /* Scales well with screen size */
+    cursor: pointer;
+    color: gray;
+    transition: color 0.3s;
+}
+
+label::before {
+    content: "\f005"; /* Font Awesome star */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}
+
+input[type="checkbox"]:checked + label {
+    color: gold;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+textarea {
+    min-height: 150px; /* Prevents it from being too small */
+    resize: vertical; /* Allows resizing */
+}
+
+.poster-container {
+    width: 100%;
+    max-width: 400px; /* Prevents it from getting too big */
+    height: auto;
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping */
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.poster {
+    display: none;
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.upload-image-button {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    padding: 0.8rem;
+    color: #3f9272;
+    border: none;
+    font-size: 1rem;
+    text-align: center;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.upload-image-button:hover {
+    background-color: #e0e0e0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .review-upload-container {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    .review-stars {
+        gap: 0.3rem;
+    }
+
+    label {
+        font-size: 1.5rem; /* Reduce star size on small screens */
+    }
+
+    .poster-container {
+        max-width: 300px;
+    }
+
+    .upload-image-button {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    label {
+        font-size: 1.2rem; /* Further reduce star size for very small screens */
+    }
+
+    .poster-container {
+        max-width: 250px;
+    }
+}

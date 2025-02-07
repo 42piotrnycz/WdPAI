@@ -10,6 +10,7 @@ Routing::get('login', 'DefaultController');
 Routing::get('register', 'DefaultController');
 Routing::get('reviews', 'DefaultController');
 Routing::get('add_review', 'DefaultController');
+Routing::get('addReview', 'ReviewController');
 Routing::post('login', 'DefaultController');
 
 Routing::run($path);

@@ -12,7 +12,7 @@
         <div class="reviews-container">
             <?php if ($review !== null): ?>
                 <h3 class="movie-title"><?= htmlspecialchars($review->getTitle()) ?></h3>
-                <img
+                <img class="poster" style="display:block"
                      src="public/uploads/<?= htmlspecialchars($review->getImage()) ?>"
                      alt="Movie Poster">
                 <h4 class="review-title"><?= htmlspecialchars($review->getReviewTitle()) ?></h4>
