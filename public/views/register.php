@@ -21,7 +21,9 @@
             </form>
         </div>
         <div class="buttons-container">
-            <button class="redirect">Log In</button>
+            <a href="login">
+                <button class="redirect">Log In</button>
+            </a>
         </div>
     </div>
 </body>

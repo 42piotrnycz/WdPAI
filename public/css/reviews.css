@@ -127,6 +127,10 @@ textarea {
     }
 }
 
+.messages {
+    color : red;
+}
+
 @media (max-width: 480px) {
     label {
         font-size: 1.2rem; /* Further reduce star size for very small screens */

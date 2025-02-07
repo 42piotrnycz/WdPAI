@@ -8,19 +8,20 @@
 <body>
     <div class="base-container">
         <div class="logo">
-
+        <div class="messages">
+            <?php
+            if(isset($messages)){
+                foreach($messages as $message) {
+                    echo $message;
+                }
+            }
+            ?>
+        </div>
         </div>
         <div class="login-container">
+
             <form class="login" action="login" method="POST">
-                <div class="messages">
-                    <?php
-                    if(isset($messages)){
-                        foreach($messages as $message) {
-                            echo $message;
-                        }
-                    }
-                    ?>
-                </div>
+
                 <input name="email" type="email" placeholder="johnsmith@gmail.com">
                 <input name="password" type="password" placeholder="password">
                 <button type="submit">Log In</button>
@@ -28,7 +29,9 @@
             </form>
         </div>
         <div class="buttons-container">
-            <button class="redirect">Create Account</button>
+            <a href="register">
+                <button class="redirect">Create Account</button>
+            </a>
         </div>
     </div>
 </body>
