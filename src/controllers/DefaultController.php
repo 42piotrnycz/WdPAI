@@ -6,7 +6,7 @@ require_once __DIR__.'/../models/Review.php';
 
 class DefaultController extends AppController {
     public function index() {
-        die("INDEX");
+        $this->render('main');
     }
 
     public function add_review() {

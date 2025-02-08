@@ -34,11 +34,8 @@ class ReviewController extends AppController
                 $uploadPath = dirname(__DIR__) . self::UPLOAD_DIRECTORY . basename($_FILES['file']['name']);
 
                 if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadPath)) {
-                    // Pobieramy identyfikator użytkownika – np. z sesji (upewnij się, że session_start() zostało wywołane)
-                    $userID = $_SESSION['userID'] ?? 0;
+                    $userID = $_SESSION['userID'] ?? 1;
 
-                    // Tworzymy nową recenzję; reviewID ustawiamy na null, bo baza wygeneruje identyfikator automatycznie
-                    // Przyjmujemy, że liczba gwiazdek (stars) to 10 – możesz zmodyfikować wg potrzeb
                     $review = new Review(
                         null,
                         $userID,
@@ -49,7 +46,6 @@ class ReviewController extends AppController
                         $_FILES['file']['name']
                     );
 
-                    // Zapisujemy recenzję do bazy
                     $reviewsRepository = new ReviewsRepository();
                     $reviewsRepository->saveReview($review);
 

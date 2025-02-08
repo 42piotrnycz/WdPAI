@@ -9,6 +9,10 @@ class SecurityController extends AppController
 {
     public function login()
     {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
         $userRepository = new UserRepository();
         $reviewsRepository = new ReviewsRepository();
 
@@ -33,6 +37,7 @@ class SecurityController extends AppController
             return $this->render('login', ['messages' => ['Wrong password!']]);
         }
 
+        $_SESSION['userID'] = $user->getUserId();
         $reviews = $reviewsRepository->getUserReviews($user->getEmail());
 
         return $this->render('reviews', ['reviews' => $reviews]);

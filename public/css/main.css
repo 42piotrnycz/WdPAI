@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+input[type="email"], input[type="password"], button {
+    margin: 10px;
+    padding: 10px;
+    width: 200px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.error-messages {
+    color: red;
+}
+
+.error {
+    margin: 10px 0;
+}

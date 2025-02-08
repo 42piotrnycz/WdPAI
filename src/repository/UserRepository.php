@@ -19,7 +19,9 @@ class UserRepository extends Repository
             return null; //throw new Exception("User wtih email '$email' not found in the database.");
         }
 
-        return new User($user['email'],
+        return new User(
+            $user['userID'],
+            $user['email'],
             $user['password'],
             $user['nickname'],
             $user['name'],

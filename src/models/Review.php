@@ -10,9 +10,9 @@ class Review
     private $stars;
     private $image;
 
-    public function __construct($reviewID, $userID, $title, $reviewTitle, $description, $stars, $image)
+    public function __construct($userID, $title, $reviewTitle, $description, $stars, $image)
     {
-        $this->reviewID = $reviewID;
+        $this->reviewID = null;
         $this->userID = $userID;
         $this->title = $title;
         $this->reviewTitle = $reviewTitle;

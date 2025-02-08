@@ -17,4 +17,6 @@ Routing::get('review', 'ReviewController');
 Routing::get('add_review', 'DefaultController');
 Routing::get('addReview', 'ReviewController');
 
+Routing::get('', 'DefaultController');
+
 Routing::run($path);
