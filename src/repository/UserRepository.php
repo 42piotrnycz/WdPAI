@@ -25,7 +25,8 @@ class UserRepository extends Repository
             $user['nickname'],
             $user['name'],
             $user['surname'],
-            $user['userID']
+            $user['userID'],
+            $user['isAdmin']
         );
     }
 
@@ -64,12 +65,14 @@ class UserRepository extends Repository
         $nickname = $user->getNickname();
         $name = $user->getName();
         $surname = $user->getSurname();
+        $isAdmin = $user->getIsAdmin();
 
         $statement->bindParam(':email', $email, PDO::PARAM_STR);
         $statement->bindParam(':password', $password, PDO::PARAM_STR);
         $statement->bindParam(':nickname', $nickname, PDO::PARAM_STR);
         $statement->bindParam(':name', $name, PDO::PARAM_STR);
         $statement->bindParam(':surname', $surname, PDO::PARAM_STR);
+        $statement->bindParam(':isAdmin', $isAdmin, PDO::PARAM_INT);
 
         if ($statement->execute()) {
             return true;

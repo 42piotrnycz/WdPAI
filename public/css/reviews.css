@@ -1,3 +1,8 @@
+body {
+    background: transparent linear-gradient(180deg, #4db28b 0%, #2b644e 100%);
+    background-attachment: fixed;
+}
+
 .review-upload-container {
     display: flex;
     flex-direction: column;

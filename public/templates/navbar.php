@@ -22,7 +22,10 @@ if (isset($_SESSION['userID'])) {
     </div>
     <div>
         <?php if ($user): ?>
-            <span class="navbar-user"><?= htmlspecialchars($user->getNickname()); ?></span>
+            <span class="navbar-user">
+            <?php if($user->getIsAdmin()): ?><?php echo 'ADMIN:  '?><?php endif; ?><?= htmlspecialchars($user->getNickname()); ?></span>
+
+
             <a href="/logout" class="logout-button"><button type="button">Log Out</button></a>
         <?php else: ?>
             <a href="/login" class="login-button"><button type="button">Login</button></a>

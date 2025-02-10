@@ -5,7 +5,6 @@
     box-sizing: border-box;
 }
 
-
 .base-container {
     display: flex;
     flex-direction: column;
