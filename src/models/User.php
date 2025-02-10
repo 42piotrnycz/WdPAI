@@ -10,7 +10,7 @@ class User
     private $surname;
     private $isAdmin;
 
-    public function __construct(string $email, string $password, string $nickname, string $name, string $surname, string $userID = null, bool $isAdmin = null)
+    public function __construct(string $email, ?string $password, string $nickname, string $name, string $surname, string $userID = null, bool $isAdmin = false)
     {
         $this->email = $email;
         $this->password = $password;

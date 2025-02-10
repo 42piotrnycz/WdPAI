@@ -22,8 +22,8 @@
             <form class="review-form" action="addReview" method="POST" enctype="multipart/form-data">
 
                 <input name="title" type="text" placeholder="Title">
-                <input class="upload-image-button" type="file" name="file" id="fileInput"/><br/>
-                <img class="poster" id="preview" src=""/>
+                <input class="upload-image-button" type="file" name="file" id="fileInput" onchange="updateImagePreview(this)"/><br/>
+                <img class="poster" id="imagePreview" src="public/img/empty_image_field.png" alt="Image Preview" />
 
                 <div class="review-stars">
                     <input class="reviewStar" type="checkbox" name="stars[]" value="1" id="star1"><label for="star1"></label>
@@ -56,6 +56,6 @@
         </div>
     </div>
 
-    <script src="public/scripts/image_preview.js"></script>
+    <script src="public/scripts/updateImagePreview.js"></script>
     <script src="public/scripts/stars.js"></script>
 </body>

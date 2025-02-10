@@ -8,6 +8,13 @@
 </head>
 <body>
 <?php include 'public/templates/navbar.php'; ?>
+<div class="reviews-filters">
+    <form method="GET" action="reviews">
+        <input type="text" name="search" placeholder="Movie/book/game title..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+        <button type="submit">Search</button>
+    </form>
+    <a href="/reviews"><button type="button">Get All</button></a>
+</div>
 <div class="reviews-grid">
     <?php if (isset($reviews) && count($reviews) > 0): ?>
         <?php foreach ($reviews as $review): ?>

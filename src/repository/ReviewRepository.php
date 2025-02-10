@@ -83,6 +83,32 @@ class ReviewRepository extends Repository
         return $reviews;
     }
 
+    public function getUserReviewsByTitle(int $userID, string $search): array
+    {
+        $statement = $this->database->connect()->prepare(
+            'SELECT * FROM public.reviews 
+         WHERE "userID" = :userID AND LOWER("title") LIKE LOWER(:search)'
+        );
+
+        $searchTerm = "%$search%"; // Tworzymy wzorzec dla LIKE
+        $statement->bindParam(':userID', $userID, PDO::PARAM_INT);
+        $statement->bindParam(':search', $searchTerm, PDO::PARAM_STR);
+        $statement->execute();
+
+        $reviews = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map(function ($review) {
+            return new Review(
+                $review['userID'],
+                $review['title'],
+                $review['reviewTitle'],
+                $review['description'],
+                $review['stars'],
+                $review['image'],
+                $review['reviewID']
+            );
+        }, $reviews);
+    }
 
     public function saveReview(Review $review)
     {
@@ -157,8 +183,6 @@ class ReviewRepository extends Repository
 
         return $statement->execute();
     }
-
-
 
     public function updateReviewImage(int $reviewID, string $newImageName): bool
     {

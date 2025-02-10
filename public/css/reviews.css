@@ -16,6 +16,36 @@ body {
     border-radius: 10px;
 }
 
+.reviews-filters {
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Odstęp między elementami */
+    width: 100%;
+}
+
+.reviews-filters form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.reviews-filters input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+
+.reviews-filters button:hover {
+    background-color: #0056b3;
+}
+
+
 .reviews-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -258,6 +288,31 @@ textarea {
     color : red;
 }
 
+.upload-image-button {
+    display: block;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.upload-image-button:hover {
+    background-color: #f0f0f0;
+}
+
+
+#imagePreview {
+    width: 60%;
+    height: 60%;
+    object-fit: cover;
+    border: 1px solid #ccc;
+}
+
+.upload-image-button + #imagePreview {
+    cursor: pointer;
+}
+
+
 @media (max-width: 480px) {
     label {
         font-size: 1.2rem; /* Further reduce star size for very small screens */
@@ -267,3 +322,4 @@ textarea {
         max-width: 250px;
     }
 }
+

@@ -62,59 +62,73 @@ class ReviewController extends AppController
         }
 
         $reviewRepository = new ReviewRepository();
-        $reviews = $reviewRepository->getUserReviewsByID($_SESSION['userID']);
 
-        return $this->render('reviews', ['reviews' => $reviews]);
+        $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+        if (!empty($search)) {
+            $reviews = $reviewRepository->getUserReviewsByTitle($_SESSION['userID'], $search);
+        } else {
+            $reviews = $reviewRepository->getUserReviewsByID($_SESSION['userID']);
+        }
+
+        return $this->render('reviews', ['reviews' => $reviews, 'search' => $search]);
     }
-
-
 
     public function addReview()
     {
-        if ($this->isPost()) {
-            if (isset($_FILES['file']) && is_uploaded_file($_FILES['file']['tmp_name']) && $this->validate($_FILES['file'])) {
-                // Pobierz rozszerzenie pliku
-                $fileExtension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
-
-                // Stwórz unikalną nazwę pliku
-                $uniqueFileName = uniqid('review_', true) . '.' . $fileExtension;
-
-                // Ścieżka zapisu pliku
-                $uploadPath = dirname(__DIR__) . self::UPLOAD_DIRECTORY . $uniqueFileName;
-
-                if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadPath)) {
-                    $userID = $_SESSION['userID'] ?? 1;
-                    $stars = isset($_POST['stars']) ? count($_POST['stars']) : 0;
-                    $title = $_POST['title'];
-                    $reviewTitle = $_POST['reviewTitle'];
-                    $description = $_POST['description'];
-
-                    $review = new Review(
-                        $userID,
-                        $title,
-                        $reviewTitle,
-                        $description,
-                        $stars,
-                        $uniqueFileName // Używamy unikalnej nazwy pliku
-                    );
-
-                    $reviewsRepository = new ReviewRepository();
-                    $reviewsRepository->saveReview($review);
-
-                    $this->messages[] = 'Review added!';
-                    return $this->render('review', ['messages' => $this->messages, 'review' => $review]);
-                } else {
-                    $this->messages[] = 'Failed to upload file.';
-                }
-            } else {
-                $this->messages[] = 'No file uploaded or file validation failed.';
-            }
+        if (!$this->isPost())
+        {
+            return $this->render('add_review', ['messages' => $this->messages]);
         }
 
-        return $this->render('add_review', ['messages' => $this->messages]);
+        if (isset($_FILES['file']) && is_uploaded_file($_FILES['file']['tmp_name']) && $this->validate($_FILES['file']))
+        {
+            $fileExtension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+
+            $uniqueFileName = uniqid('review_', true) . '.' . $fileExtension;
+
+            $uploadPath = dirname(__DIR__) . self::UPLOAD_DIRECTORY . $uniqueFileName;
+
+            if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadPath))
+            {
+                $userID = $_SESSION['userID'] ?? 1;
+                $stars = isset($_POST['stars']) ? count($_POST['stars']) : 0;
+                $title = $_POST['title'];
+                $reviewTitle = $_POST['reviewTitle'];
+                $description = $_POST['description'];
+
+                $review = new Review(
+                    $userID,
+                    $title,
+                    $reviewTitle,
+                    $description,
+                    $stars,
+                    $uniqueFileName
+                );
+
+                $reviewsRepository = new ReviewRepository();
+                $reviewsRepository->saveReview($review);
+
+                $this->messages[] = 'Review added!';
+                return $this->render('review', ['messages' => $this->messages, 'review' => $review]);
+            }
+            else
+            {
+                $this->messages[] = 'Failed to upload file.';
+            }
+        }
+        else $this->messages[] = 'No file uploaded or file validation failed.';
     }
 
+    public function showReviews()
+    {
+        $reviewRepository = new ReviewRepository();
+        $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
+        $reviews = $reviewRepository->getReviewsByTitle($search);
+
+        return $this->render('reviews', ['reviews' => $reviews]);
+    }
 
     public function editReview()
     {

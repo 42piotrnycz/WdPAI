@@ -11,6 +11,7 @@ class UserRepository extends Repository
             'SELECT * FROM public.users WHERE "userID" = :userID'  /* Ensure correct casing */
         );
         $statement->bindParam(':userID', $userID, PDO::PARAM_INT);
+
         $statement->execute();
 
         $user = $statement->fetch(PDO::FETCH_ASSOC);
@@ -50,14 +51,15 @@ class UserRepository extends Repository
             $user['nickname'],
             $user['name'],
             $user['surname'],
-            $user['userID']
+            $user['userID'],
+            $user['isAdmin']
         );
     }
 
     public function addUser(User $user): bool
     {
         $statement = $this->database->connect()->prepare(
-            'INSERT INTO public.users (email, password, nickname, name, surname) VALUES (:email, :password, :nickname, :name, :surname)'
+            'INSERT INTO public.users (email, password, nickname, name, surname, "isAdmin") VALUES (:email, :password, :nickname, :name, :surname, :isAdmin)'
         );
 
         $email = $user->getEmail();
@@ -72,7 +74,7 @@ class UserRepository extends Repository
         $statement->bindParam(':nickname', $nickname, PDO::PARAM_STR);
         $statement->bindParam(':name', $name, PDO::PARAM_STR);
         $statement->bindParam(':surname', $surname, PDO::PARAM_STR);
-        $statement->bindParam(':isAdmin', $isAdmin, PDO::PARAM_INT);
+        $statement->bindParam(':isAdmin', $isAdmin, PDO::PARAM_BOOL);
 
         if ($statement->execute()) {
             return true;
@@ -81,4 +83,58 @@ class UserRepository extends Repository
             return false;
         }
     }
+
+    public function getAllUsers(): array
+    {
+        $statement = $this->database->connect()->prepare(
+            'SELECT "userID", email, nickname, name, surname, "isAdmin" FROM public.users ORDER BY "userID" ASC'
+        );
+
+        $statement->execute();
+        $users = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $userObjects = [];
+
+        foreach ($users as $user) {
+            $userObjects[] = new User(
+                $user['email'],
+                $user['password'] ?? null, // password może być null w przypadku getAllUsers
+                $user['nickname'],
+                $user['name'],
+                $user['surname'],
+                $user['userID'],
+                $user['isAdmin']
+            );
+        }
+
+        return $userObjects;
+    }
+
+
+
+    public function deleteUserByID(int $userID): bool
+    {
+        $statement = $this->database->connect()->prepare(
+            'DELETE FROM public.users WHERE "userID" = :userID'
+        );
+        $statement->bindParam(':userID', $userID, PDO::PARAM_INT);
+
+        return $statement->execute();
+    }
+
+    public function changeUserRole(int $userID, bool $isAdmin): bool
+    {
+        $newRole = $isAdmin ? false : true;
+
+        $statement = $this->database->connect()->prepare(
+            'UPDATE public.users SET "isAdmin" = :isAdmin WHERE "userID" = :userID'
+        );
+
+        $statement->bindParam(':userID', $userID, PDO::PARAM_INT);
+        $statement->bindParam(':isAdmin', $newRole, PDO::PARAM_BOOL);
+
+        return $statement->execute();
+    }
+
+
 }
