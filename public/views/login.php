@@ -8,20 +8,10 @@
 <body>
     <div class="base-container">
         <div class="logo">
-        <div class="messages">
-            <?php
-            if(isset($messages)){
-                foreach($messages as $message) {
-                    echo $message;
-                }
-            }
-            ?>
-        </div>
+            <img class="logo" src="public/img/logo.png" alt="Logo"></img>
         </div>
         <div class="login-container">
-
             <form class="login" action="login" method="POST">
-
                 <input name="email" type="email" placeholder="johnsmith@gmail.com">
                 <input name="password" type="password" placeholder="password">
                 <button type="submit">Log In</button>

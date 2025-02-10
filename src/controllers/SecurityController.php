@@ -14,7 +14,7 @@ class SecurityController extends AppController
         }
 
         $userRepository = new UserRepository();
-        $reviewsRepository = new ReviewsRepository();
+        $reviewsRepository = new ReviewRepository();
 
         if (!$this->isPost()) {
             return $this->render('login');
@@ -38,9 +38,20 @@ class SecurityController extends AppController
         }
 
         $_SESSION['userID'] = $user->getUserId();
-        $reviews = $reviewsRepository->getUserReviews($user->getEmail());
+        $reviews = $reviewsRepository->getUserReviewsByID($user->getUserId());
 
+        header("Location: /reviews");
+        exit();
         return $this->render('reviews', ['reviews' => $reviews]);
     }
 
+    public function logout()
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        session_destroy();
+        header("Location: /");
+        exit();
+    }
 }

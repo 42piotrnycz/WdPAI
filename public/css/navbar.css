@@ -30,6 +30,13 @@
     color: #f0a500;
 }
 
+.navbar-user {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding-left: 15px;
+}
+
 /* Responsive Navbar */
 @media (max-width: 600px) {
     .navbar {

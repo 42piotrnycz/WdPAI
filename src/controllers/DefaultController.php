@@ -9,12 +9,8 @@ class DefaultController extends AppController {
         $this->render('main');
     }
 
-    public function add_review() {
-        $this->render('add_review');
-    }
-
     public function login() {
-        $this->render('login', ['test']);
+        $this->render('login');
     }
 
     public function register() {

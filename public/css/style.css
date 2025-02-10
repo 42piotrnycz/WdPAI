@@ -173,14 +173,13 @@ button:disabled {
     margin-bottom: 10px;
 }
 
-.review-description {
-    font-size: 1rem;
-    color: #555;
-    line-height: 1.6;
-    display: block;
-    margin-top: 10px;
-    text-decoration: none;
-    transition: color 0.3s ease-in-out;
+.logo {
+    mix-blend-mode: multiply;
+    max-width: 300px;
+    max-height: 300px;
+    width: 10vw;
+    height: 10vw;
+    color: #333;
 }
 
 .review-description:hover {

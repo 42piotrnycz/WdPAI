@@ -25,10 +25,31 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     text-align: center;
+
+}
+.review-container a {
+    text-decoration: none !important;
+    color: inherit;
+    display: block;
+}
+.review-container a:hover,
+.review-container a:focus,
+.review-container a:visited {
+    text-decoration: none !important; /* Prevents underlining in all states */
+}
+.review-container h2,
+.review-container h3,
+.review-container p {
+    margin: 0;
+    padding: 5px 0;
 }
 
 .review-container:hover {
     transform: translateY(-5px);
+}
+
+.review-container.a {
+    text-decoration: none;
 }
 
 .review-container h2 {
@@ -42,6 +63,43 @@
     margin: 5px 0;
     color: #555;
 }
+
+.review-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.edit-button,
+.delete-button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.edit-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+.edit-button:hover {
+    background-color: #0056b3;
+}
+
 
 .poster {
     width: 250px;
@@ -58,6 +116,16 @@
     align-items: center;
     padding: 2rem;
     width: 100%;
+}
+
+.review-description {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
 }
 
 .review-stars {
