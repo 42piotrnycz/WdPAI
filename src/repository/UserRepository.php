@@ -52,4 +52,30 @@ class UserRepository extends Repository
             $user['userID']
         );
     }
+
+    public function addUser(User $user): bool
+    {
+        $statement = $this->database->connect()->prepare(
+            'INSERT INTO public.users (email, password, nickname, name, surname) VALUES (:email, :password, :nickname, :name, :surname)'
+        );
+
+        $email = $user->getEmail();
+        $password = $user->getPassword();
+        $nickname = $user->getNickname();
+        $name = $user->getName();
+        $surname = $user->getSurname();
+
+        $statement->bindParam(':email', $email, PDO::PARAM_STR);
+        $statement->bindParam(':password', $password, PDO::PARAM_STR);
+        $statement->bindParam(':nickname', $nickname, PDO::PARAM_STR);
+        $statement->bindParam(':name', $name, PDO::PARAM_STR);
+        $statement->bindParam(':surname', $surname, PDO::PARAM_STR);
+
+        if ($statement->execute()) {
+            return true;
+        } else {
+            // error_log('Database error: ' . implode(' ', $statement->errorInfo()));
+            return false;
+        }
+    }
 }

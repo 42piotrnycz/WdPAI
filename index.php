@@ -15,6 +15,7 @@ Routing::post('login', 'SecurityController');
 
 Routing::get('logout', 'SecurityController');
 Routing::get('register', 'DefaultController');
+Routing::post('register', 'SecurityController');
 
 Routing::get('reviews', 'ReviewController');
 Routing::get('review', 'ReviewController');

@@ -3,8 +3,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 90%; /* Adjusted for better responsiveness */
-    max-width: 600px; /* Prevents excessive stretching */
+    width: 90%;
+    max-width: 600px;
     height: auto;
     padding: 2rem;
     background-color: white;
@@ -35,7 +35,7 @@
 .review-container a:hover,
 .review-container a:focus,
 .review-container a:visited {
-    text-decoration: none !important; /* Prevents underlining in all states */
+    text-decoration: none !important;
 }
 .review-container h2,
 .review-container h3,

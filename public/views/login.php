@@ -11,6 +11,8 @@
             <img class="logo" src="public/img/logo.png" alt="Logo"></img>
         </div>
         <div class="login-container">
+            <?php include 'public/templates/messages.php'; ?>
+
             <form class="login" action="login" method="POST">
                 <input name="email" type="email" placeholder="johnsmith@gmail.com">
                 <input name="password" type="password" placeholder="password">

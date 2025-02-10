@@ -8,6 +8,7 @@ class User
     private $nickname;
     private $name;
     private $surname;
+    private $isAdmin;
 
     public function __construct(string $email, string $password, string $nickname, string $name, string $surname, string $userID = null)
     {
@@ -17,9 +18,17 @@ class User
         $this->name = $name;
         $this->surname = $surname;
         $this->userID = $userID;
+        $this->isAdmin = false;
     }
 
-
+    public function getIsAdmin(): bool
+    {
+        return $this->isAdmin;
+    }
+    public function setIsAdmin(bool $isAdmin)
+    {
+        $this->isAdmin = $isAdmin;
+    }
     public function getUserID(): string
     {
         return $this->userID;

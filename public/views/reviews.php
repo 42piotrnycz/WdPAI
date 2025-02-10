@@ -18,9 +18,8 @@
                              src="public/uploads/<?php echo htmlspecialchars($review->getImage()); ?>" alt="Review Image">
                     <?php endif; ?>
 
+                    <h1><?php echo htmlspecialchars($review->getTitle()); ?></h1>
                     <?php include 'public/templates/stars.php'; ?>
-
-                    <h2><?php echo htmlspecialchars($review->getTitle()); ?></h2>
                     <h3><?php echo htmlspecialchars($review->getReviewTitle()); ?></h3>
                     <p><?php echo htmlspecialchars($review->getDescription()); ?></p>
                 </a>

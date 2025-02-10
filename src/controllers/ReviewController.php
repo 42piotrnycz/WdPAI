@@ -69,36 +69,38 @@ class ReviewController extends AppController
 
 
 
-    public function addReview() {
+    public function addReview()
+    {
         if ($this->isPost()) {
-            // Sprawdzanie, czy plik jest przesyłany i jest poprawny
             if (isset($_FILES['file']) && is_uploaded_file($_FILES['file']['tmp_name']) && $this->validate($_FILES['file'])) {
-                $uploadPath = dirname(__DIR__) . self::UPLOAD_DIRECTORY . basename($_FILES['file']['name']);
+                // Pobierz rozszerzenie pliku
+                $fileExtension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+
+                // Stwórz unikalną nazwę pliku
+                $uniqueFileName = uniqid('review_', true) . '.' . $fileExtension;
+
+                // Ścieżka zapisu pliku
+                $uploadPath = dirname(__DIR__) . self::UPLOAD_DIRECTORY . $uniqueFileName;
 
                 if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadPath)) {
-                    // Pobranie danych z formularza
                     $userID = $_SESSION['userID'] ?? 1;
                     $stars = isset($_POST['stars']) ? count($_POST['stars']) : 0;
+                    $title = $_POST['title'];
+                    $reviewTitle = $_POST['reviewTitle'];
+                    $description = $_POST['description'];
 
-                    $title = $_POST['title'];  // Tytuł recenzji
-                    $reviewTitle = $_POST['reviewTitle'];  // Podtytuł recenzji
-                    $description = $_POST['description'];  // Opis recenzji
-
-                    // Utworzenie obiektu Review
                     $review = new Review(
                         $userID,
                         $title,
                         $reviewTitle,
                         $description,
                         $stars,
-                        $_FILES['file']['name']
+                        $uniqueFileName // Używamy unikalnej nazwy pliku
                     );
 
-                    // Zapisanie recenzji w bazie danych
                     $reviewsRepository = new ReviewRepository();
                     $reviewsRepository->saveReview($review);
 
-                    // Dodanie komunikatu o sukcesie
                     $this->messages[] = 'Review added!';
                     return $this->render('review', ['messages' => $this->messages, 'review' => $review]);
                 } else {
@@ -111,6 +113,7 @@ class ReviewController extends AppController
 
         return $this->render('add_review', ['messages' => $this->messages]);
     }
+
 
 
     public function editReview()

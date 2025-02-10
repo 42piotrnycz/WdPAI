@@ -5,13 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
     <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="public/css/main.css">
+
 </head>
 <body>
-<h1>Welcome to Our Site!</h1>
+<?php include 'public/templates/navbar.php'; ?>
+    <div class="content-wrapper">
+        <h1>REviewER</h1>
 
-<div>
-    <a href="/login"><button>Login</button></a>
-    <a href="/register"><button>Register</button></a>
-</div>
+        <p>Immerse yourself in the world of storytelling with Reviewer - your personal journal for every movie, TV series, book, and video game you experience!
+        Whether you're a cinephile, a binge-watcher, a bookworm, or a gaming enthusiast, Reviewer is your go-to platform for capturing your thoughts, rating your favorites,
+        and building a curated collection of everything you've ever enjoyed.</p>
+        <p>✨ Track Your Journey – Keep a detailed record of everything you've watched, read, or played.</p>
+        <p>⭐ Rate & Review – Share your insights, rate your experiences, and relive your favorites.</p>
+        <p>📖 Rediscover Hidden Gems – Never forget a great story—your personal archive keeps it all in one place.</p>
+        <p>🎮 Collect & Compare – See how your ratings stack up, and whose are your favorites!</p>
+    </div>
+
 </body>
 </html>
