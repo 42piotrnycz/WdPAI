@@ -145,7 +145,6 @@ class ReviewRepository extends Repository
         $statement->bindParam(':reviewID', $reviewID, PDO::PARAM_INT);
         $statement->bindParam(':userID', $userID, PDO::PARAM_INT);
 
-
         return $statement->execute();
     }
 
@@ -159,4 +158,16 @@ class ReviewRepository extends Repository
         return $statement->execute();
     }
 
+
+
+    public function updateReviewImage(int $reviewID, string $newImageName): bool
+    {
+        $statement = $this->database->connect()->prepare(
+            'UPDATE public.reviews SET image = :image WHERE "reviewID" = :reviewID'
+        );
+        $statement->bindParam(':image', $newImageName, PDO::PARAM_STR);
+        $statement->bindParam(':reviewID', $reviewID, PDO::PARAM_INT);
+
+        return $statement->execute();
+    }
 }

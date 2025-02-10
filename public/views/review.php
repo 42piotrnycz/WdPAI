@@ -25,13 +25,14 @@
                 <form class="review-form" action="editReview" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="reviewID" value="<?= htmlspecialchars($review->getReviewID()); ?>">
                     <a href="editReviewPage?id=<?= urlencode($review->getReviewID()); ?>" class="edit-button">Edit</a>
+                </form>
+                <form action="/deleteReview" method="POST" onsubmit="return confirm('Are you sure you want to delete this review?');">
+                    <input type="hidden" name="reviewID" value="<?= $review->getReviewID(); ?>">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
 
-                    <form action="deleteReview" method="POST" onsubmit="return confirm('Are you sure you want to delete this review?');">
-                        <input type="hidden" name="reviewID" value="<?= $review->getReviewID(); ?>">
-                        <button type="submit" class="delete-button">Delete</button>
-                    </form>
-                </div>
-            <?php endif; ?>
+
+<?php endif; ?>
         <?php else: ?>
             <p>No review available</p>
         <?php endif; ?>

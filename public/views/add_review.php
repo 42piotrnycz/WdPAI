@@ -25,7 +25,6 @@
                 <input class="upload-image-button" type="file" name="file" id="fileInput"/><br/>
                 <img class="poster" id="preview" src=""/>
 
-
                 <div class="review-stars">
                     <input class="reviewStar" type="checkbox" name="stars[]" value="1" id="star1"><label for="star1"></label>
                     <input class="reviewStar" type="checkbox" name="stars[]" value="2" id="star2"><label for="star2"></label>

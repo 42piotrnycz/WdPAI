@@ -2,12 +2,9 @@
 <html>
 <head>
     <title>User Reviews</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="public/css/style.css">
     <link rel="stylesheet" href="public/css/reviews.css">
-
 </head>
 <body>
 <?php include 'public/templates/navbar.php'; ?>
@@ -23,9 +20,9 @@
 
                     <?php include 'public/templates/stars.php'; ?>
 
-                    <h2> <?php echo htmlspecialchars($review->getTitle()); ?></h2>
+                    <h2><?php echo htmlspecialchars($review->getTitle()); ?></h2>
                     <h3><?php echo htmlspecialchars($review->getReviewTitle()); ?></h3>
-                    <p> <?php echo htmlspecialchars($review->getDescription()); ?></p>
+                    <p><?php echo htmlspecialchars($review->getDescription()); ?></p>
                 </a>
             </div>
         <?php endforeach; ?>
