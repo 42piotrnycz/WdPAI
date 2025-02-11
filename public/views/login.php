@@ -6,9 +6,11 @@
 </head>
 
 <body>
+<?php include 'public/templates/navbar.php'; ?>
+
     <div class="base-container">
         <div class="logo">
-            <img class="logo" src="public/img/logo.png" alt="Logo"></img>
+            <img class="logo" src="public/img/logo.pngd" alt="Logo"></img>
         </div>
         <div class="login-container">
             <?php include 'public/templates/messages.php'; ?>

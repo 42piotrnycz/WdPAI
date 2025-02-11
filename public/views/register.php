@@ -6,6 +6,8 @@
 </head>
 
 <body>
+<?php include 'public/templates/navbar.php'; ?>
+
 <div class="base-container">
     <div class="logo">
 

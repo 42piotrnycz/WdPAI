@@ -20,12 +20,24 @@ class SecurityController extends AppController
         $password = $_POST['password'];
 
         if (empty($email) || empty($nickname) || empty($name) || empty($surname) || empty($password)) {
-            header("Location: /register?error=All fields are required");
-            exit();
+            $messages[] = 'All fields are required';
+        }
+
+        $userRepository = new UserRepository();
+
+        if ($userRepository->emailExists($email)) {
+            $messages[] = 'Email is already in use';
+        }
+
+        if ($userRepository->nicknameExists($nickname)) {
+            $messages[] = 'Nickname is already taken';
+        }
+
+        if (!empty($messages)) {
+            return $this->render('register', ['messages' => $messages]);
         }
 
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-
         $user = new User($email, $hashedPassword, $nickname, $name, $surname);
 
         $userRepository = new UserRepository();
@@ -60,6 +72,9 @@ class SecurityController extends AppController
         }
 
         $_SESSION['userID'] = $user->getUserId();
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+
+
 
         header("Location: /reviews");
         exit();

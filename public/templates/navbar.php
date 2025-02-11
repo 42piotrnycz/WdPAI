@@ -14,18 +14,26 @@ if (isset($_SESSION['userID'])) {
 </head>
 
 <nav class="navbar">
-    <a href="/">REviewer</a>
+    <!-- Left Section -->
+    <div class="navbar-left">
+        <a href="/" class="navbar-logo"><h2>REviewer</h2></a>
+    </div>
 
-    <div class="navbar-links">
-        <a href="/addReview"><button type="button">Add Review</button></a>
-        <a href="/reviews"><button type="button">All Reviews</button></a>
+    <!-- Middle Section -->
+    <div class="navbar-buttons">
+        <a href="/latestReviews"><button type="button">Latest Reviews</button></a>
+        <?php if (isset($_SESSION['userID'])):?>
+            <a href="/reviews"><button type="button">Your Reviews</button></a>
+            <a href="/addReview"><button type="button">Add Review</button></a>
+        <?php endif;?>
 
         <?php if ($user && $user->getIsAdmin()): ?>
-            <a href="/moderate"><button type="button" class="admin-button">Moderation</button></a>
+            <a href="/moderate"><button type="button">Moderation</button></a>
         <?php endif; ?>
     </div>
 
-    <div>
+    <!-- Right Section -->
+    <div class="navbar-right">
         <?php if ($user): ?>
             <span class="navbar-user">
                 <?php if ($user->getIsAdmin()): ?>
@@ -33,10 +41,10 @@ if (isset($_SESSION['userID'])) {
                 <?php endif; ?>
                 <?= htmlspecialchars($user->getNickname()); ?>
             </span>
-            <a href="/logout" class="logout-button"><button type="button">Log Out</button></a>
+            <a href="/logout"><button type="button">Log Out</button></a>
         <?php else: ?>
-            <a href="/login" class="login-button"><button type="button">Login</button></a>
-            <a href="/register" class="register-button"><button type="button">Sign Up</button></a>
+            <a href="/login"><button type="button">Login</button></a>
+            <a href="/register"><button type="button">Sign Up</button></a>
         <?php endif; ?>
     </div>
 </nav>

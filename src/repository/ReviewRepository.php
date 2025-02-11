@@ -90,7 +90,7 @@ class ReviewRepository extends Repository
          WHERE "userID" = :userID AND LOWER("title") LIKE LOWER(:search)'
         );
 
-        $searchTerm = "%$search%"; // Tworzymy wzorzec dla LIKE
+        $searchTerm = "%$search%";
         $statement->bindParam(':userID', $userID, PDO::PARAM_INT);
         $statement->bindParam(':search', $searchTerm, PDO::PARAM_STR);
         $statement->execute();
@@ -109,6 +109,58 @@ class ReviewRepository extends Repository
             );
         }, $reviews);
     }
+
+    public function getLatestUserReviews($limit = 10) {
+        $stmt = $this->database->connect()->prepare(
+            "SELECT r.\"reviewID\", r.\"userID\", r.\"title\", r.\"reviewTitle\", r.\"description\", r.\"stars\", r.\"image\"
+        FROM reviews r
+        ORDER BY r.\"reviewID\" DESC
+        LIMIT :limit"
+        );
+
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Get all the user IDs from the reviews
+        $userIDs = array_column($reviews, 'userID');
+        $placeholders = str_repeat('?,', count($userIDs) - 1) . '?';
+
+        // Prepare the query to get the nicknames for the user IDs
+        $stmt = $this->database->connect()->prepare(
+            "SELECT \"userID\", nickname FROM users WHERE \"userID\" IN ($placeholders)"
+        );
+
+        $stmt->execute($userIDs);
+
+        // Store user nicknames in an associative array
+        $userNicknames = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $userNicknames[$row['userID']] = $row['nickname'];
+        }
+
+        // Map the reviews to Review objects
+        $reviews = array_map(function ($review) use ($userNicknames) {
+            return new Review(
+                $review['userID'],
+                $review['title'],
+                $review['reviewTitle'],
+                $review['description'],
+                $review['stars'],
+                $review['image'],
+                $review['reviewID']
+            );
+        }, $reviews);
+
+        // Return reviews and the corresponding nicknames separately
+        return [
+            'reviews' => $reviews,
+            'nicknames' => $userNicknames
+        ];
+    }
+
+
 
     public function saveReview(Review $review)
     {
@@ -147,32 +199,38 @@ class ReviewRepository extends Repository
         return $review;
     }
 
-    public function editReview(Review $review)
-    {
-        $statement = $this->database->connect()->prepare(
-            'UPDATE public.reviews 
-        SET "title" = :title, "reviewTitle" = :reviewTitle, "description" = :description, "stars" = :stars, "image" = :image
-        WHERE "reviewID" = :reviewID AND "userID" = :userID'
-        );
+    public function updateReview($review) {
+        try {
+            $query = 'UPDATE public.reviews SET 
+                        title = :title,
+                        "reviewTitle" = :reviewTitle,
+                        description = :description,
+                        stars = :stars,
+                        image = :image
+                      WHERE "reviewID" = :reviewID';
 
-        $title = $review->getTitle();
-        $reviewTitle = $review->getReviewTitle();
-        $description = $review->getDescription();
-        $stars = $review->getStars();
-        $image = $review->getImage();
-        $reviewID = $review->getReviewID();
-        $userID = $review->getUserID();
+            $stmt = $this->database->connect()->prepare($query);
+            $title = $review->getTitle();
+            $reviewTitle = $review->getReviewTitle();
+            $description = $review->getDescription();
+            $stars = $review->getStars();
+            $image = $review->getImage();
+            $reviewID = $review->getReviewID();
 
-        $statement->bindParam(':title', $title, PDO::PARAM_STR);
-        $statement->bindParam(':reviewTitle', $reviewTitle, PDO::PARAM_STR);
-        $statement->bindParam(':description', $description, PDO::PARAM_STR);
-        $statement->bindParam(':stars', $stars, PDO::PARAM_INT);
-        $statement->bindParam(':image', $image, PDO::PARAM_STR);
-        $statement->bindParam(':reviewID', $reviewID, PDO::PARAM_INT);
-        $statement->bindParam(':userID', $userID, PDO::PARAM_INT);
+            $stmt->bindParam(':reviewID', $reviewID);
+            $stmt->bindParam(':title', $title);
+            $stmt->bindParam(':reviewTitle', $reviewTitle);
+            $stmt->bindParam(':description', $description);
+            $stmt->bindParam(':stars', $stars, PDO::PARAM_INT);
+            $stmt->bindParam(':image', $image, PDO::PARAM_STR);
 
-        return $statement->execute();
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            // Obsługuje błąd
+            return false;
+        }
     }
+
 
     public function deleteReview(int $reviewID): bool
     {

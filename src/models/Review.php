@@ -9,6 +9,7 @@ class Review
     private $description;
     private $stars;
     private $image;
+    private $nickname;
 
     public function __construct($userID, $title, $reviewTitle, $description, $stars, $image, $reviewID = null)
     {

@@ -38,14 +38,12 @@
                 <td><?php echo $user->getIsAdmin() ? 'Admin' : 'User'; ?></td>
                 <td>
                     <div class="admin-panel-grid">
-                        <a class="role-change-button" href="reviewLogs?userID=<?php echo $user->getUserID(); ?>"
-                           class="view-logs-button"><button>VIEW LOGS</button></a>
-
-                        <form method="POST" action="moderate" style="display:inline;">
-                            <button type="submit" name="delete" value="<?php echo $user->getUserID(); ?>" class="role-change-button" onclick="return confirm('Czy na pewno chcesz usunąć tego użytkownika?');">Usuń</button>
-                        </form>
+                        <a href="reviewLogs?userID=<?php echo $user->getUserID(); ?>" ><button class="view-logs-button">REVIEW LOGS</button></a>
 
                         <?php if ($user->getUserID() != $_SESSION['userID']):?>
+                            <form method="POST" action="moderate" style="display:inline;">
+                                <button type="submit" name="delete" value="<?php echo $user->getUserID(); ?>" class="role-change-button" onclick="return confirm('Are you sure you want to delete this user?');">DELETE</button>
+                            </form>
                             <form method="GET" action="moderate" style="display:inline;">
                                 <button type="submit" name="changeRole" value="<?php echo $user->getUserID(); ?>" class="role-change-button">
                                     <?php echo $user->getIsAdmin() ? 'CHANGE ROLE TO USER' : 'CHANGE ROLE TO ADMIN'; ?>

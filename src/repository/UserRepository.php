@@ -30,7 +30,6 @@ class UserRepository extends Repository
             $user['isAdmin']
         );
     }
-
     public function getUser(string $email) : ?User
     {
         $statement = $this->database->connect()->prepare(
@@ -54,6 +53,58 @@ class UserRepository extends Repository
             $user['userID'],
             $user['isAdmin']
         );
+    }
+    public function getAllUsers(): array
+    {
+        $statement = $this->database->connect()->prepare(
+            'SELECT "userID", email, nickname, name, surname, "isAdmin" FROM public.users ORDER BY "userID" ASC'
+        );
+
+        $statement->execute();
+        $users = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $userObjects = [];
+
+        foreach ($users as $user) {
+            $userObjects[] = new User(
+                $user['email'],
+                $user['password'] ?? null, // password może być null w przypadku getAllUsers
+                $user['nickname'],
+                $user['name'],
+                $user['surname'],
+                $user['userID'],
+                $user['isAdmin']
+            );
+        }
+
+        return $userObjects;
+    }
+    public function getNicknameByUserId($userID) {
+        $stmt = $this->database->connect()->prepare(
+            "SELECT nickname FROM users WHERE userID = :userID"
+        );
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['nickname'] : null;
+    }
+
+    public function emailExists($email)
+    {
+        $stmt = $this->database->connect()->prepare('SELECT COUNT(*) FROM users WHERE email = :email');
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchColumn() > 0;
+    }
+    public function nicknameExists($nickname)
+    {
+        $stmt = $this->database->connect()->prepare('SELECT COUNT(*) FROM users WHERE nickname = :nickname');
+        $stmt->bindParam(':nickname', $nickname, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchColumn() > 0;
     }
 
     public function addUser(User $user): bool
@@ -83,35 +134,6 @@ class UserRepository extends Repository
             return false;
         }
     }
-
-    public function getAllUsers(): array
-    {
-        $statement = $this->database->connect()->prepare(
-            'SELECT "userID", email, nickname, name, surname, "isAdmin" FROM public.users ORDER BY "userID" ASC'
-        );
-
-        $statement->execute();
-        $users = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        $userObjects = [];
-
-        foreach ($users as $user) {
-            $userObjects[] = new User(
-                $user['email'],
-                $user['password'] ?? null, // password może być null w przypadku getAllUsers
-                $user['nickname'],
-                $user['name'],
-                $user['surname'],
-                $user['userID'],
-                $user['isAdmin']
-            );
-        }
-
-        return $userObjects;
-    }
-
-
-
     public function deleteUserByID(int $userID): bool
     {
         $statement = $this->database->connect()->prepare(
@@ -121,7 +143,6 @@ class UserRepository extends Repository
 
         return $statement->execute();
     }
-
     public function changeUserRole(int $userID, bool $isAdmin): bool
     {
         $newRole = $isAdmin ? false : true;

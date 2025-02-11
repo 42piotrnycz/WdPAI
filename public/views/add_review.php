@@ -13,10 +13,7 @@
 </head>
 
 <body>
-    <?php
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    } ?>
+    <?php include 'public/templates/navbar.php'; ?>
     <div class="base-container">
         <div class="review-upload-container">
             <form class="review-form" action="addReview" method="POST" enctype="multipart/form-data">

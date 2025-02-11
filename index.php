@@ -20,19 +20,17 @@ Routing::post('register', 'SecurityController');
 Routing::get('reviews', 'ReviewController');
 Routing::get('reviews', 'ReviewController');
 Routing::get('review', 'ReviewController');
-Routing::get('reviewLogs', 'LogsController');
-Routing::post('reviewLogs', 'LogsController');
-
+Routing::get('latestReviews', 'ReviewController');
 
 Routing::get('addReview', 'ReviewController');
-
 Routing::get('editReviewPage', 'ReviewController');
 Routing::post('editReview', 'ReviewController');
-
 Routing::post('deleteReview', 'ReviewController');
 
 Routing::get('moderate', 'ModerationController');
 Routing::get('deleteUser', 'ModerationController');
+Routing::get('reviewLogs', 'LogsController');
+Routing::post('reviewLogs', 'LogsController');
 
 Routing::run($path);
 ?>

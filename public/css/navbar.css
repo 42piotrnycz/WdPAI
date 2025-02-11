@@ -1,51 +1,95 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
 .navbar {
     display: flex;
+    width: 100vw;
+    height: 7vh;
     justify-content: space-between;
     align-items: center;
-    background: #333;
-    padding: 15px 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #333;
+    padding: 10px 20px;
+    color: white;
+}
+
+/* Left Section */
+.navbar-left {
+    flex: 1;
+    width: 25vw;
 }
 
 .navbar-logo {
-    color: white;
-    font-size: 22px;
-    font-weight: bold;
     text-decoration: none;
+    color: white;
 }
 
-.navbar-links {
+.navbar-logo h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Middle Section */
+.navbar-buttons {
+    width: 50vw;
     display: flex;
-    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
-.navbar-links a {
-    color: white;
-    text-decoration: none;
+.navbar-buttons a button {
+
+    padding: 8px 16px;
     font-size: 16px;
-    transition: color 0.3s;
+    border: none;
+    border-radius: 5px;
+    background-color: #4db28b;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.navbar-links a:hover {
-    color: #f0a500;
+.navbar-buttons a button:hover {
+    background-color: #3f9272;
+}
+
+.admin-button {
+    background-color: #dc3545;
+}
+
+/* Right Section */
+.navbar-right {
+    display: flex;
+    justify-content: right;
+    align-items: start;
+    gap: 15px;
+    width: 25vw;
+    padding-left: 10px;
 }
 
 .navbar-user {
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    padding-left: 15px;
+    font-size: 16px;
 }
 
-/* Responsive Navbar */
-@media (max-width: 600px) {
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
     .navbar {
         flex-direction: column;
-        text-align: center;
+        align-items: flex-start;
     }
 
-    .navbar-links {
-        flex-direction: column;
+    .navbar-left {
+        margin-bottom: 10px;
+    }
+
+    .navbar-buttons {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .navbar-right {
         margin-top: 10px;
     }
 }

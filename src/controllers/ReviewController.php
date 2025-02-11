@@ -27,7 +27,6 @@ class ReviewController extends AppController
         return true;
     }
 
-
     public function review()
     {
         if (session_status() == PHP_SESSION_NONE) {
@@ -48,8 +47,6 @@ class ReviewController extends AppController
 
         return $this->render('review', ['review' => $review]);
     }
-
-
     public function reviews()
     {
         if (session_status() == PHP_SESSION_NONE) {
@@ -63,9 +60,9 @@ class ReviewController extends AppController
 
         $reviewRepository = new ReviewRepository();
 
-        $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+        $search = isset($_GET['search']) ? htmlspecialchars(trim($_GET['search'])) : '';
+        if (!empty($search) || $search != "") {
 
-        if (!empty($search)) {
             $reviews = $reviewRepository->getUserReviewsByTitle($_SESSION['userID'], $search);
         } else {
             $reviews = $reviewRepository->getUserReviewsByID($_SESSION['userID']);
@@ -73,9 +70,19 @@ class ReviewController extends AppController
 
         return $this->render('reviews', ['reviews' => $reviews, 'search' => $search]);
     }
+    public function latestReviews() {
+        $reviewRepository = new ReviewRepository();
+        $data = $reviewRepository->getLatestUserReviews(30);
+        return $this->render('reviews', ['reviews' => $data['reviews'], 'nicknames' => $data['nicknames']]);
+    }
 
     public function addReview()
     {
+
+        if (session_status() == PHP_SESSION_NONE || !isset($_SESSION['userID'])) {
+            return $this->render('login');
+        }
+
         if (!$this->isPost())
         {
             return $this->render('add_review', ['messages' => $this->messages]);
@@ -130,51 +137,36 @@ class ReviewController extends AppController
         return $this->render('reviews', ['reviews' => $reviews]);
     }
 
-    public function editReview()
-    {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['reviewID'])) {
-            header("Location: /reviews?error=Invalid request");
-            exit();
-        }
+    public function editReview() {
+        $reviewRepository = new ReviewRepository();
+        $reviewRepository->deleteReview($_POST['reviewID']);
 
+        $userID = $_POST['userID'];
         $reviewID = $_POST['reviewID'];
-        $userID = $_SESSION['userID'] ?? null;
-
-
-        if (!$userID) {
-            header("Location: /reviews?error=Unauthorized access");
-            exit();
-        }
-
-        $reviewsRepository = new ReviewRepository();
-        $review = $reviewsRepository->getReviewById($reviewID);
-
-        if (!$review || $review->getUserID() != $userID) {
-            header("Location: /reviews?error=You are not authorized to edit this review");
-            exit();
-        }
         $title = isset($_POST['title']) ? $_POST['title'] : '';
         $reviewTitle = isset($_POST['reviewTitle']) ? $_POST['reviewTitle'] : '';
         $description = isset($_POST['description']) ? $_POST['description'] : '';
         $stars = isset($_POST['stars']) ? count($_POST['stars']) : 0;
+        $image = isset($_POST['image']) ? $_POST['image'] : '';
 
-        $review->setTitle($title);
-        $review->setReviewTitle($reviewTitle);
-        $review->setDescription($description);
-        $review->setStars(($stars));
+        $review = new Review($userID, $title, $reviewTitle, $description, $stars, $image, $reviewID);
 
-        if (!empty($_FILES['file']['name'])) {
-            $uploadPath = dirname(__DIR__) . self::UPLOAD_DIRECTORY . basename($_FILES['file']['name']);
-            if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadPath)) {
-                $review->setImage($_FILES['file']['name']);
-            }
-        }
+        $reviewRepository->saveReview($review);
+        $this->render('review', ['review' => $review]);
+        return;
 
-        if ($reviewsRepository->editReview($review)) {
-            header("Location: /review?id=$reviewID&message=Review updated successfully");
-            exit();
-        } else {
-            header("Location: /edit_review?id=$reviewID&error=Failed to update review");
+        /// THE UPDATE IS NOT WORKING CURRENCTLY, USING A WORKAROUND
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            //if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
+                //$image = $this->uploadImage($_FILES['file']);
+            //}
+
+            $review = new Review($userID, $title, $reviewTitle, $description, $stars, $image, $reviewID);
+            $reviewsRepository = new ReviewRepository();
+            $reviewsRepository->updateReview($review);
+
+
+            $this->render('review', ['review' => $review]);
             exit();
         }
     }
