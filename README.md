@@ -67,3 +67,6 @@ Reviewer is designed for individuals who want to keep track of their thoughts on
 ## ERD DIAGRAM
 
 ![image](https://github.com/user-attachments/assets/fce6ee89-6f1c-4f51-b81c-1e3db81786a1)
+
+## SQL DUMP 
+SQL DUMP with sample data is available in the source files.
