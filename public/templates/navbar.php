@@ -34,6 +34,7 @@ if (isset($_SESSION['userID'])) {
 
     <!-- Right Section -->
     <div class="navbar-right">
+        <div class="navbar-buttons">
         <?php if ($user): ?>
             <span class="navbar-user">
                 <?php if ($user->getIsAdmin()): ?>
@@ -46,5 +47,6 @@ if (isset($_SESSION['userID'])) {
             <a href="/login"><button type="button">Login</button></a>
             <a href="/register"><button type="button">Sign Up</button></a>
         <?php endif; ?>
+        </div>
     </div>
 </nav>

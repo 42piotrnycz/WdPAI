@@ -50,20 +50,20 @@ tr:hover {
 
 .admin-panel-grid {
     display: grid;
-    grid-template-columns: repeat(3, auto); /* Creates 3 columns with minimal width */
-    gap: 5px; /* Reduces space between items */
-    justify-content: start; /* Aligns items closer together */
-    align-items: center; /* Centers items vertically */
+    grid-template-columns: repeat(3, auto);
+    gap: 5px;
+    justify-content: start;
+    align-items: center;
 }
 
 .admin-panel-grid button {
-    padding: 5px 10px; /* Makes buttons smaller */
-    font-size: 12px; /* Reduces text size */
+    padding: 5px 10px;
+    font-size: 12px;
 }
 
 
 
-/* Stylizacja dla elementów listy użytkowników */
+
 .user-list {
     display: none;
 }

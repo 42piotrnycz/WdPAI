@@ -18,7 +18,7 @@ Routing::get('register', 'DefaultController');
 Routing::post('register', 'SecurityController');
 
 Routing::get('reviews', 'ReviewController');
-Routing::get('reviews', 'ReviewController');
+Routing::post('reviews', 'ReviewController');
 Routing::get('review', 'ReviewController');
 Routing::get('latestReviews', 'ReviewController');
 

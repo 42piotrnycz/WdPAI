@@ -1,7 +1,5 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
     background: transparent linear-gradient(180deg, #4db28b 0%, #2b644e 100%);
     background-attachment: fixed;
 }

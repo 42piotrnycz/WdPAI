@@ -1,5 +1,6 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Open Sans', sans-serif;
+
     margin: 0;
     padding: 0;
     background: transparent linear-gradient(180deg, #4db28b 0%, #2b644e 100%);
@@ -24,10 +25,16 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 0.5rem;
 }
 
 .logo img {
     width: 120px;
     height: auto;
     margin-bottom: 20px;
+}
+
+textarea {
+    font-family: 'Open Sans', sans-serif;
+
 }

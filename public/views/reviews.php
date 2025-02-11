@@ -10,7 +10,9 @@
 
 <?php include 'public/templates/navbar.php'; ?>
 
-<div class="reviews-filters"><?php include 'public/templates/starChart.php'; ?></div>
+<div class="reviews-filters">
+    <?php include 'public/templates/starChart.php'; ?>
+</div>
 
 <?php if (!isset($nicknames)): ?>
 <div class="reviews-filters">

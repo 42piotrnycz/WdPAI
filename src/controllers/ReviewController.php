@@ -138,6 +138,34 @@ class ReviewController extends AppController
         return $this->render('reviews', ['reviews' => $reviews]);
     }
 
+    public function getUserReviewsAPI()
+    {
+        if ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
+            $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+            $reviewsRepository = new ReviewRepository();
+            $reviews = $reviewsRepository->getUserReviewsByTitle($search);
+
+            $response = [];
+            $response['reviews'] = [];
+
+            foreach ($reviews as $review) {
+                $response['reviews'][] = [
+                    'title' => $review->getTitle(),
+                    'image' => $review->getImage(),
+                    'stars' => $review->getStars(),
+                    'reviewTitle' => $review->getReviewTitle(),
+                    'description' => $review->getDescription(),
+                    'reviewID' => $review->getReviewID()
+                ];
+            }
+
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            exit();
+        }
+    }
+
     public function editReview() {
         $reviewRepository = new ReviewRepository();
         $reviewRepository->deleteReview($_POST['reviewID']);
