@@ -1,11 +1,14 @@
 /* Global Styles */
 body {
+    height: 100%;
     background: transparent linear-gradient(180deg, #4db28b 0%, #2b644e 100%);
     background-attachment: fixed;
     margin: 0;
     padding: 0;
     color: #333;
 }
+
+
 
 .base-container {
     width: 90%;
@@ -42,10 +45,13 @@ body {
 
 .review-description {
     font-size: 1.1rem;
-    line-height: 1.6;
+    line-height: 1.1rem;
     color: #666;
-    margin: 20px 0;
+    margin: 0px 0;
     white-space: pre-line;
+    max-height: 1000px !important;
+    overflow: auto !important;
+    text-overflow: fade;
 }
 
 .review-stars {

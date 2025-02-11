@@ -3,11 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchButton = document.getElementById("search-button");
     const reviewsGrid = document.querySelector(".reviews-grid");
 
-    // Function to fetch filtered reviews based on search input
     const fetchFilteredReviews = async (searchTerm) => {
         const response = await fetch(`/reviews?search=${encodeURIComponent(searchTerm)}`);
         if (response.ok) {
-            const data = await response.json(); // Assuming your server returns JSON data
+            const data = await response.json();
             updateReviewsGrid(data.reviews);
         } else {
             console.error("Failed to fetch reviews");
@@ -15,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const updateReviewsGrid = (reviews) => {
-        reviewsGrid.innerHTML = ''; // Clear existing reviews
+        reviewsGrid.innerHTML = '';
         if (reviews.length > 0) {
             reviews.forEach(review => {
                 const reviewElement = document.createElement("div");
@@ -38,13 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Event listener for the search button
     searchButton.addEventListener("click", () => {
         const searchTerm = searchInput.value.trim();
         fetchFilteredReviews(searchTerm);
     });
 
-    // Trigger the fetch when the user starts typing (optional)
     searchInput.addEventListener("input", () => {
         const searchTerm = searchInput.value.trim();
         fetchFilteredReviews(searchTerm);

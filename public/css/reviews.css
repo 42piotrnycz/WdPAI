@@ -140,9 +140,9 @@ button:hover {
 
 .review-description {
     font-size: 1.1rem;
-    line-height: 1.6;
+    line-height: 1.1rem;
     color: #666;
-    margin: 20px 0;
+    margin: 0px 0;
     white-space: pre-line;
     max-height: 100px;
     overflow: hidden;

@@ -1,3 +1,8 @@
+html, body {
+    overflow: auto;
+    overflow-y: scroll;
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
     color : black;

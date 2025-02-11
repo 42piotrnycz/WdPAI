@@ -19,19 +19,7 @@
             <input class="upload-image-button" type="file" name="file" id="fileInput" onchange="updateImagePreview(this)"/><br/>
             <img class="poster" id="imagePreview" src="public/img/empty_image_field.png" alt="Image Preview" />
 
-            <div class="review-stars">
-                <input class="reviewStar" type="checkbox" name="stars[]" value="1" id="star1"><label for="star1"></label>
-                <input class="reviewStar" type="checkbox" name="stars[]" value="2" id="star2"><label for="star2"></label>
-                <input class="reviewStar" type="checkbox" name="stars[]" value="3" id="star3"><label for="star3"></label>
-                <input class="reviewStar" type="checkbox" name="stars[]" value="4" id="star4"><label for="star4"></label>
-                <input class="reviewStar" type="checkbox" name="stars[]" value="5" id="star5"><label for="star5"></label>
-                <input class="reviewStar" type="checkbox" name="stars[]" value="6" id="star6"><label for="star6"></label>
-                <input class="reviewStar" type="checkbox" name="stars[]" value="7" id="star7"><label for="star7"></label>
-                <input class="reviewStar" type="checkbox" name="stars[]" value="8" id="star8"><label for="star8"></label>
-                <input class="reviewStar" type="checkbox" name="stars[]" value="9" id="star9"><label for="star9"></label>
-                <input class="reviewStar" type="checkbox" name="stars[]" value="10" id="star10"><label for="star10"></label>
-            </div>
-
+            <?php include 'public/templates/starsAddReview.php'; ?>
 
             <input name="reviewTitle" type="text" placeholder="Review Title">
             <textarea name="description" rows="16" placeholder="Your review goes here..."></textarea>

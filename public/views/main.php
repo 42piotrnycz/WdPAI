@@ -11,6 +11,7 @@
 <?php include 'public/templates/navbar.php'; ?>
     <div class="content-wrapper">
         <h1 class="web-title">REviewer</h1>
+
         <div class="section-container">
             <div class="middle-section">
                 <p>Immerse yourself in the world of storytelling with REviewer - your personal journal for every movie, TV series, book, and video game you experience!
