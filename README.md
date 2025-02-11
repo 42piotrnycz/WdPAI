@@ -2,7 +2,7 @@
 
 Reviewer is a web application that allows users to keep a personal journal of reviews for books, games, videos, and more. It provides an easy and organized way to store and manage personal opinions on various media.
 
-![image](https://github.com/user-attachments/assets/877a4493-0d2c-4602-9341-c14f26dc4ef9)
+![image](https://github.com/user-attachments/assets/9f389bd1-1ce2-4da4-8dd3-47d221854f33)
 
 ## Features
 
