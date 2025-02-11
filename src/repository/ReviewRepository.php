@@ -232,12 +232,50 @@ class ReviewRepository extends Repository
     }
 
 
-    public function deleteReview(int $reviewID): bool
+    public function deleteReview($reviewID)
+    {
+        $stmt = $this->database->connect()->prepare('SELECT image FROM reviews WHERE "reviewID" = :reviewID');
+        $stmt->bindParam(':reviewID', $reviewID, PDO::PARAM_INT);
+        $stmt->execute();
+        $image = $stmt->fetchColumn();
+
+        $query = 'DELETE FROM reviews WHERE "reviewID" = :reviewID';
+        $stmt = $this->database->connect()->prepare($query);
+        $stmt->bindParam(':reviewID', $reviewID, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            if ($image && file_exists("public/uploads/$image")) {
+                unlink("public/uploads/$image"); // Delete image file
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    public function editReview(Review $review)
     {
         $statement = $this->database->connect()->prepare(
-            'DELETE FROM public.reviews WHERE "reviewID" = :reviewID'
+            'UPDATE public.reviews 
+        SET "title" = :title, "reviewTitle" = :reviewTitle, "description" = :description, "stars" = :stars, "image" = :image
+        WHERE "reviewID" = :reviewID AND "userID" = :userID'
         );
+
+        $title = $review->getTitle();
+        $reviewTitle = $review->getReviewTitle();
+        $description = $review->getDescription();
+        $stars = $review->getStars();
+        $image = $review->getImage();
+        $reviewID = $review->getReviewID();
+        $userID = $review->getUserID();
+
+        $statement->bindParam(':title', $title, PDO::PARAM_STR);
+        $statement->bindParam(':reviewTitle', $reviewTitle, PDO::PARAM_STR);
+        $statement->bindParam(':description', $description, PDO::PARAM_STR);
+        $statement->bindParam(':stars', $stars, PDO::PARAM_INT);
+        $statement->bindParam(':image', $image, PDO::PARAM_STR);
         $statement->bindParam(':reviewID', $reviewID, PDO::PARAM_INT);
+        $statement->bindParam(':userID', $userID, PDO::PARAM_INT);
 
         return $statement->execute();
     }

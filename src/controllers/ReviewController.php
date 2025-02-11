@@ -166,7 +166,10 @@ class ReviewController extends AppController
         }
     }
 
-    public function editReview() {
+    public function editReviewWorkaround()
+    {
+        /// IF THE UPDATE IS NOT WORKING, USE THIS WORKAROUND!
+
         $reviewRepository = new ReviewRepository();
         $reviewRepository->deleteReview($_POST['reviewID']);
 
@@ -184,20 +187,53 @@ class ReviewController extends AppController
         $this->render('review', ['review' => $review]);
         return;
 
-        /// THE UPDATE IS NOT WORKING CURRENCTLY, USING A WORKAROUND
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            //if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
-                //$image = $this->uploadImage($_FILES['file']);
-            //}
-
-            $review = new Review($userID, $title, $reviewTitle, $description, $stars, $image, $reviewID);
-            $reviewsRepository = new ReviewRepository();
-            $reviewsRepository->updateReview($review);
-
-
-            $this->render('review', ['review' => $review]);
+    }
+    public function editReview() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['reviewID'])) {
+            header("Location: /reviews?error=Invalid request");
             exit();
         }
+
+        $reviewID = $_POST['reviewID'];
+        $userID = $_SESSION['userID'] ?? null;
+
+        if (!$userID) {
+            header("Location: /reviews?error=Unauthorized access");
+            exit();
+        }
+
+        $reviewsRepository = new ReviewRepository();
+        $review = $reviewsRepository->getReviewById($reviewID);
+
+        if (!$review || $review->getUserID() != $userID) {
+            header("Location: /reviews?error=You are not authorized to edit this review");
+            exit();
+        }
+        $title = isset($_POST['title']) ? $_POST['title'] : '';
+        $reviewTitle = isset($_POST['reviewTitle']) ? $_POST['reviewTitle'] : '';
+        $description = isset($_POST['description']) ? $_POST['description'] : '';
+        $stars = isset($_POST['stars']) ? count($_POST['stars']) : 0;
+
+        $review->setTitle($title);
+        $review->setReviewTitle($reviewTitle);
+        $review->setDescription($description);
+        $review->setStars(($stars));
+
+        if (!empty($_FILES['file']['name'])) {
+            $uploadPath = dirname(__DIR__) . self::UPLOAD_DIRECTORY . basename($_FILES['file']['name']);
+            if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadPath)) {
+                $review->setImage($_FILES['file']['name']);
+            }
+        }
+
+        if ($reviewsRepository->editReview($review)) {
+            header("Location: /review?id=$reviewID&message=Review updated successfully");
+            exit();
+        } else {
+            header("Location: /edit_review?id=$reviewID&error=Failed to update review");
+            exit();
+        }
+        return;
     }
 
     public function editReviewPage()
@@ -228,42 +264,22 @@ class ReviewController extends AppController
 
     public function deleteReview()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reviewID'])) {
+        if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['reviewID'])) {
             $reviewID = $_POST['reviewID'];
-            $userID = $_SESSION['userID'] ?? null;
+            $reviewRepo = new ReviewRepository();
 
-            // Check if review exists and belongs to the logged-in user
-            $reviewsRepository = new ReviewRepository();
-            $review = $reviewsRepository->getReviewById($reviewID);
-
-            if (!$review) {
-                // If review doesn't exist, output debug info and exit
-                echo "Review not found!";
-                exit();
-            }
-
-            if ($review->getUserID() != $userID) {
-                // If the user is not the owner of the review
-                echo "User is not authorized to delete this review.";
-                exit();
-            }
-
-            // Try deleting the review
-            if ($reviewsRepository->deleteReview($reviewID)) {
-                // Redirect to /reviews after successful deletion
-                header("Location: /reviews?message=Review%20deleted%20successfully");
-                exit();
+            if ($reviewRepo->deleteReview($reviewID)) {
+                $_SESSION['message'] = "Review deleted successfully!";
             } else {
-                // If deletion fails
-                header("Location: /reviews?error=Failed%20to%20delete%20review");
-                exit();
+                $_SESSION['error'] = "Failed to delete the review.";
             }
-        } else {
-            // If no review ID is provided, output error
-            echo "Invalid request or missing review ID.";
+
+            header("Location: /reviews");
             exit();
         }
     }
+
+
 
 
 }

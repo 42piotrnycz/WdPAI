@@ -26,6 +26,7 @@ Routing::get('addReview', 'ReviewController');
 Routing::get('editReviewPage', 'ReviewController');
 Routing::post('editReview', 'ReviewController');
 Routing::post('deleteReview', 'ReviewController');
+Routing::get('deleteReview', 'ReviewController');
 
 Routing::get('moderate', 'ModerationController');
 Routing::get('deleteUser', 'ModerationController');
