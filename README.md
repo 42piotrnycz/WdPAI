@@ -62,6 +62,7 @@ Reviewer is designed for individuals who want to keep track of their thoughts on
 - **User Profiles** - Add friends and view their reviews!
 - **Advanced Statistics** – Users will be able to see trends in their reviews (e.g., most reviewed categories).
 - **Social Features** – Possibility to share reviews with friends or the community.
+- **Improved Administration Panel ** – Adding social features requires stronger moderation tools - removing inappropriate reviews, timed blocks for users, but also reasoning behind the actions taken by administrator.
 
 ## ERD DIAGRAM
 
