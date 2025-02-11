@@ -130,6 +130,7 @@ class ReviewController extends AppController
 
     public function showReviews()
     {
+        $this->handleSession();
         $reviewRepository = new ReviewRepository();
         $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 

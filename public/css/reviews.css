@@ -1,6 +1,6 @@
 body {
-    background: transparent linear-gradient(180deg, #4db28b 0%, #2b644e 100%);
-    background-attachment: fixed;
+    background: transparent linear-gradient(180deg, #4db28b 0%, #2b644e 100%) !important;
+    background-attachment: fixed !important;
 }
 
 h1 h2 h3 {

@@ -23,7 +23,7 @@
 
             <input name="reviewTitle" type="text" placeholder="Review Title">
             <textarea name="description" rows="16" placeholder="Your review goes here..."></textarea>
-            <button type="submit">send</button>
+            <button type="submit">ADD</button>
 
         </form>
     </div>

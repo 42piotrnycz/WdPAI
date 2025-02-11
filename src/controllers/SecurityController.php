@@ -57,9 +57,7 @@ class SecurityController extends AppController
             return $this->render('login');
         }
 
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->handleSession();
 
         $userRepository = new UserRepository();
         $email = $_POST['email'];

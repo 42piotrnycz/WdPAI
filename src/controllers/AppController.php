@@ -6,6 +6,13 @@ class AppController {
         $this->request = $_SERVER['REQUEST_METHOD'];
     }
 
+    public function handleSession()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    }
+
     protected function isGet(): bool
     {
         return $this->request === 'GET';
