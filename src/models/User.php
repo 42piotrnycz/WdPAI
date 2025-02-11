@@ -2,21 +2,41 @@
 
 class User
 {
+    private $userID;
     private $email;
     private $password;
     private $nickname;
     private $name;
     private $surname;
+    private $isAdmin;
 
-    public function __construct(string $email, string $password, string $nickname, string $name, string $surname)
+    public function __construct(string $email, ?string $password, string $nickname, string $name, string $surname, string $userID = null, bool $isAdmin = false)
     {
         $this->email = $email;
         $this->password = $password;
         $this->nickname = $nickname;
         $this->name = $name;
         $this->surname = $surname;
+        $this->userID = $userID;
+        $this->isAdmin = $isAdmin;
     }
 
+    public function getIsAdmin(): bool
+    {
+        return $this->isAdmin;
+    }
+    public function setIsAdmin(bool $isAdmin)
+    {
+        $this->isAdmin = $isAdmin;
+    }
+    public function getUserID(): string
+    {
+        return $this->userID;
+    }
+    public function setUserID(string $userID)
+    {
+        $this->userID = $userID;
+    }
     public function getSurname(): string
     {
         return $this->surname;

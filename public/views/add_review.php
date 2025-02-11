@@ -1,59 +1,33 @@
 <!DOCTYPE html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="public/css/style.css">
-    <link rel="stylesheet" type="text/css" href="public/css/projects.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="public/css/reviews.css">
+    <link rel="stylesheet" type="text/css" href="public/css/add_review.css">
 
-    <title>REVIEWS</title>
+    <title>Adding new review...</title>
 </head>
 
 <body>
-<div class="base-container">
-    <nav>
-        <img src="public/img/logo.svg">
-        <ul>
-            <li>
-                <i class="fas fa-project-diagram"></i>
-                <a href="#" class="button">projects</a>
-            </li>
-            <li>
-                <i class="fas fa-project-diagram"></i>
-                <a href="#" class="button">projects</a>
-            </li>
-            <li>
-                <i class="fas fa-project-diagram"></i>
-                <a href="#" class="button">projects</a>
-            </li>
-            <li>
-                <i class="fas fa-project-diagram"></i>
-                <a href="#" class="button">projects</a>
-            </li>
-        </ul>
-    </nav>
-    <main>
-        <header>
-            <div class="search-bar">
-                <form>
-                    <input placeholder="search project">
-                </form>
-            </div>
-            <div class="add-project">
-                <i class="fas fa-plus"></i> add project
-            </div>
-        </header>
-        <section class="projects">
-            <div id="project-1">
-                <img src="public/img/uploads/project_smile.jpg">
-                <div>
-                    <h2>title</h2>
-                    <p>description</p>
-                    <div class="social-section">
-                        <i class="fas fa-heart"> 600</i>
-                        <i class="fas fa-minus-square"> 121</i>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-</div>
+    <?php include 'public/templates/navbar.php'; ?>
+
+    <div class="base-container">
+        <form class="review-form" action="addReview" method="POST" enctype="multipart/form-data">
+            <?php include 'public/templates/messages.php'; ?>
+
+            <input name="title" type="text" placeholder="Title">
+            <input class="upload-image-button" type="file" name="file" id="fileInput" onchange="updateImagePreview(this)"/><br/>
+            <img class="poster" id="imagePreview" src="public/img/empty_image_field.png" alt="Image Preview" />
+
+            <?php include 'public/templates/starsAddReview.php'; ?>
+
+            <input name="reviewTitle" type="text" placeholder="Review Title">
+            <textarea name="description" rows="16" placeholder="Your review goes here..."></textarea>
+            <button type="submit">ADD</button>
+
+        </form>
+    </div>
+
+    <script src="public/scripts/updateImagePreview.js"></script>
+    <script src="public/scripts/stars.js"></script>
 </body>

@@ -1,0 +1,134 @@
+/* Global Styles */
+body {
+    height: 100%;
+    background: transparent linear-gradient(180deg, #4db28b 0%, #2b644e 100%);
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+
+
+.base-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.movie-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.poster {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.review-title {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color: #555;
+}
+
+.review-description {
+    font-size: 1.1rem;
+    line-height: 1.1rem;
+    color: #666;
+    margin: 0px 0;
+    white-space: pre-line;
+    max-height: 1000px !important;
+    overflow: auto !important;
+    text-overflow: fade;
+}
+
+.review-stars {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    gap: 0.1rem;
+}
+
+.review-stars label {
+    font-size: 24px;
+    color: gray;
+    cursor: pointer;
+}
+
+.review-stars input:checked + label {
+    color: gold;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+}
+
+.no-review-message {
+    font-size: 1.2rem;
+    color: #777;
+    margin-top: 20px;
+}
+
+
+@media (max-width: 768px) {
+    .base-container {
+        padding: 1.5rem;
+    }
+
+    .movie-title {
+        font-size: 1.8rem;
+    }
+
+    .review-title {
+        font-size: 1.3rem;
+    }
+
+    .review-description {
+        font-size: 1rem;
+    }
+
+    .review-stars {
+        gap: 0.3rem;
+    }
+
+    .edit-button,
+    .delete-button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .movie-title {
+        font-size: 1.6rem;
+    }
+
+    .review-title {
+        font-size: 1.1rem;
+    }
+
+    .review-description {
+        font-size: 0.95rem;
+    }
+
+    .review-stars {
+        font-size: 20px;
+    }
+}
