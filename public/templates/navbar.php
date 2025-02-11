@@ -11,6 +11,7 @@ if (isset($_SESSION['userID'])) {
 
 <head>
     <link rel="stylesheet" href="public/css/navbar.css">
+    <link rel="stylesheet" href="public/css/main.css">
 </head>
 
 <nav class="navbar">

@@ -1,10 +1,14 @@
-/* Style ogólne strony */
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f9;
-    color: #333;
+    color: #333 !important;
     margin: 0;
     padding: 0;
+
+    background: transparent linear-gradient(180deg, #4db28b 0%, #2b644e 100%) !important;
+    background-attachment: fixed !important;
+
 }
 
 /* Stylizacja nagłówka */
