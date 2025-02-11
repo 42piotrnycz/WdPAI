@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-    <title>REVIEWS</title>
+    <title>Adding new Review...</title>
     <link rel="stylesheet" type="text/css" href="public/css/style.css">
     <link rel="stylesheet" type="text/css" href="public/css/reviews.css">
 

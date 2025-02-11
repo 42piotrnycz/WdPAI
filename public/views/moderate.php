@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Moderacja użytkowników</title>
+    <title>Moderation Panel</title>
     <link rel="stylesheet" href="public/css/style.css">
     <link rel="stylesheet" href="public/css/moderation.css">
 </head>
 <body>
 <?php include 'public/templates/navbar.php'; ?>
 
-<h1>Panel administracyjny</h1>
+<h1>Moderation panel:</h1>
 
 <?php if (isset($_SESSION['error_message'])): ?>
     <div class="error-message">

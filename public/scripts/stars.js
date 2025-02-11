@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 for (let i = 0; i <= index; i++) {
                     stars[i].checked = true;
                 }
-            } else {
+            }
+            else {
                 for (let i = index; i < stars.length; i++) {
                     stars[i].checked = false;
                 }

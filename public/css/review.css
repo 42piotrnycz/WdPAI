@@ -80,6 +80,7 @@ body {
     margin-top: 20px;
 }
 
+
 @media (max-width: 768px) {
     .base-container {
         padding: 1.5rem;

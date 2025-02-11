@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: transparent linear-gradient(180deg, #4db28b 0%, #2b644e 100%);
+    background-attachment: fixed;
+}
+
+.navbar {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.base-container {
+    margin-top: 80px;
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logo img {
+    width: 120px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.login-container {
+    margin-bottom: 30px;
+}
+
+.login input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.login button {
+    width: 80%;
+    padding: 10px;
+    background-color: #4db28b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login button:hover {
+    background-color: #3f9272;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+}
+
+.redirect {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.redirect:hover {
+    background-color: #007bb5;
+}
+
+.buttons-container a {
+    text-decoration: none;
+}
+
+.messages {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #d9534f;
+}
+
+.messages.success {
+    color: #5bc0de;
+}

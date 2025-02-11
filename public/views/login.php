@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 
 <head>
-    <title>LOGIN</title>
-    <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    <title>Logging in...</title>
+    <link rel="stylesheet" type="text/css" href="public/css/login.css">
 </head>
 
 <body>
@@ -10,7 +10,7 @@
 
     <div class="base-container">
         <div class="logo">
-            <img class="logo" src="public/img/logo.pngd" alt="Logo"></img>
+            <img class="logo" src="public/img/logo.png" alt="Logo"></img>
         </div>
         <div class="login-container">
             <?php include 'public/templates/messages.php'; ?>

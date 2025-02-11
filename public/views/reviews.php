@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Reviews</title>
+    <title>Viewing Reviews...</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="public/css/style.css">
     <link rel="stylesheet" href="public/css/reviews.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>

@@ -125,6 +125,7 @@ class ReviewController extends AppController
             }
         }
         else $this->messages[] = 'No file uploaded or file validation failed.';
+        return $this->render('add_review', ['messages' => $this->messages]);
     }
 
     public function showReviews()
